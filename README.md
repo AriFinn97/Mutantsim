@@ -1,5 +1,5 @@
 # Mutantsim
-
+> MutantSim is a program that enables the user, when using an alphavirus as a display model to know the expected protein outcomes.
 # MutantSim — Expected Protein Outcomes under Biased Polymerase Errors
 
 > Given an mRNA and a biased base-substitution model per amplification round,
