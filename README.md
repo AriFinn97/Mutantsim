@@ -51,3 +51,34 @@ python -m venv .venv
 source .venv/bin/activate   # Windows: .venv\Scripts\activate
 pip install -e .
 
+---
+### 2. Run on the example
+python -m mutantsim \
+  --fasta examples/example.fasta \
+  --bias examples/bias_matrix.csv \
+  --rounds 5 \
+  --region 4-15
+---
+### 3. Example Output
+Sequence length (nt): 18
+Protein (no mutations): MA...
+Codons in CDS: 5
+% Unchanged protein: 97.500%
+% Premature STOP:    0.050%
+P(k=0 nonsilent) = 97.500%
+P(k=1 nonsilent) = 2.400%
+P(k=2 nonsilent) = 0.100%
+ROI codons: 1-5
+% ≥1 nonsilent in ROI: 2.500%
+---
+
+### Respository structure
+mutantsim/
+  src/mutantsim/      # core code
+  examples/           # example FASTA and bias matrix
+  tests/              # minimal tests
+  pyproject.toml      # package settings
+  README.md
+
+
+
