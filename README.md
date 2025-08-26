@@ -1,36 +1,53 @@
-# Mutantsim
-> MutantSim is a program that enables the user, when using an alphavirus as a display model to know the expected protein outcomes.
-# MutantSim — Expected Protein Outcomes under Biased Polymerase Errors
+# 🧬 MutantSim — Protein Outcomes Under Biased Polymerase Errors
 
-> Given an mRNA and a biased base-substitution model per amplification round,
-> estimate the protein-level consequences (unchanged AA, #nonsilent codons, premature/late STOP, moved start), 
-> plus region-specific risks and synonymous recoding suggestions.
+## 📖 What does this project do?
+MutantSim is a Python tool that takes an **mRNA coding sequence (CDS)** and a **mutation bias matrix** for an error-prone polymerase, and estimates the effects on the resulting protein.  
 
-## What does this project do?
-- Computes **expected** protein outcomes analytically using a 4×4 mutation matrix and `R` rounds.
-- Optionally **simulates** many sequences to validate or explore edge cases.
-- Reports region-specific risks and suggests synonymous codons to reduce (or increase) selected risks.
+> In simple words:  
+> You give the program a gene sequence and the error rates of the viral polymerase, and it tells you:  
+> • what % of proteins will stay unchanged  
+> • what % will carry amino acid changes  
+> • how often premature stop codons appear  
+> • what happens in any region of interest you choose  
 
-## Inputs and Outputs
-**Input**
-- mRNA sequence (FASTA or raw string; T is accepted and converted to U).
-- 4×4 biased mutation matrix CSV (rows A,C,G,U → cols A,C,G,U) per round.
-- Rounds `R` (integer).  
-- Optional: region(s) of interest, downstream FASTA for homology scan.
+This can be useful for:
+- Understanding how mutation bias affects protein stability  
+- Exploring **regions of interest** within a gene  
+- Building intuition about error-prone amplification in virology or synthetic biology  
 
-**Output**
-- Sequence length; original protein translation.
-- Expected % unchanged protein; distribution over {k nonsilent codons}.
-- % premature STOP; % delayed STOP; % moved start.
-- ROI: % with ≥1 nonsilent; distribution over nonsilent count.
-- (Optional) homology flags and synonymous recoding suggestions.
-- HTML/Markdown report + CSV tables.
+---
 
-## Quickstart
+## 🧾 Inputs
+1. **FASTA file** — mRNA sequence starting at `AUG` and ending at a stop codon (CDS only).  
+2. **Bias matrix (CSV)** — a 4×4 table of base substitution probabilities per round.  
+   - Header: `A,C,G,U`  
+   - Rows: A, C, G, U  
+   - Each row must sum to ~1.0.  
+3. **Rounds** — how many amplification cycles to simulate (integer).  
+4. **Optional region (nt positions)** — a range like `300-600` to check mutation risk in that part of the sequence.  
+
+---
+
+## 📤 Outputs (V1)
+- 🧾 **Sequence length** (nt)  
+- 🔠 **Protein product (no mutations)** — original translation  
+- 🧩 **Codon count** (number of codons in CDS)  
+- ✅ **% unchanged protein** (no amino acid changes at all)  
+- 📊 **Distribution of k nonsilent mutations** (probability of 0,1,2… codons changing)  
+- ⛔ **% premature STOP codon** (protein truncated early)  
+- 🎯 **Region of interest** — probability of ≥1 nonsilent mutation in the specified region  
+
+All results are printed in the terminal (future versions will also produce nice HTML/plots 📈).
+
+---
+
+## 🚀 Quickstart
+
+### 1. Clone and set up
 ```bash
-git clone https://github.com/<you>/mutantsim.git
+git clone https://github.com/<your-username>/mutantsim.git
 cd mutantsim
-python -m venv .venv && source .venv/bin/activate
-pip install -e ".[dev]"
-pytest -q
-mutantsim analyze --help
+python -m venv .venv
+source .venv/bin/activate   # Windows: .venv\Scripts\activate
+pip install -e .
+
