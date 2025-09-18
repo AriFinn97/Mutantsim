@@ -1,0 +1,2 @@
+[console_scripts]
+mutantsim = mutantsim.__main__:main
