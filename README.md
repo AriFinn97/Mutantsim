@@ -47,13 +47,11 @@ All results are printed in the terminal (future versions will also produce nice 
 ```bash
 git clone https://github.com/<your-username>/mutantsim.git
 cd mutantsim
-python -m venv .venv
-source .venv/bin/activate   # Windows: .venv\Scripts\activate
 pip install -e .
 
 ---
 ## 2. Run on the example
-python -m mutantsim \
+python3 -m mutantsim \
   --fasta examples/example.fasta \
   --bias examples/bias_matrix.csv \
   --rounds 5 \
