@@ -18,8 +18,8 @@ from __future__ import annotations
 from typing import Dict, List, Tuple
 import numpy as np
 
-from .genetics import clean_mrna, CODON_TO_AA
-from .model import BASES, IDX
+from genetics import clean_mrna, CODON_TO_AA
+from model import BASES, IDX
 
 
 def codons_in_cds(seq: str) -> List[str]:

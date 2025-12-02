@@ -17,9 +17,9 @@ import argparse
 from pathlib import Path
 import numpy as np
 
-from .genetics import clean_mrna, translate
-from .model import load_bias_matrix_csv, matrix_power_per_round
-from .analytics import summarize
+from genetics import clean_mrna, translate
+from model import load_bias_matrix_csv, matrix_power_per_round
+from analytics import summarize
 
 def read_fasta(path: str) -> str:
     """
